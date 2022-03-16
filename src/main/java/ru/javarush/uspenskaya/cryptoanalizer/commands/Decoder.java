@@ -1,10 +1,12 @@
 package ru.javarush.uspenskaya.cryptoanalizer.commands;
 
 import ru.javarush.uspenskaya.cryptoanalizer.entity.Result;
+import ru.javarush.uspenskaya.cryptoanalizer.entity.ResultCode;
 
 public class Decoder implements Action{
     @Override
     public Result execute(String[] parameters) {
-        return null;
+        //TODO something do
+        return new Result("Раскодировано.", ResultCode.ОК);
     }
 }
