@@ -3,7 +3,7 @@ package ru.javarush.uspenskaya.cryptoanalizer.constants;
 import java.io.File;
 
 public class Constants {
-    private static final String RUS = "АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
+    private static final String RUS = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
     private static final String CYFER = "0123456789";
     private static final String ZNAK = ".,«»:;!?{}[]()@№/\"\\ ";
     private static final String ALPHABET = RUS+RUS.toLowerCase()+CYFER+ZNAK;

@@ -7,19 +7,19 @@ import static ru.javarush.uspenskaya.cryptoanalizer.constants.Constants.getAlpha
 
 public class ConsoleRunner {
     public static void main(String[] args) {
-
+        String menu = "Программа криптоанализатор\n "+
+                "Режимы работы:\n" +
+                "1.Режим шифрования текста (введите \"encode\")\n" +
+                "2.Режим дешифрования текста (введите \"decode\")\n" +
+                "3.Режим brute force (введите \"brute_force\")\n" +
+                "4.Режим статистического анализа (введите \"analysis\") \n" +
+                "5.Выход (введите \"exit\")";
         while (args.length == 0) {
             args = new String[4];
             Scanner scanner = new Scanner(System.in);
             boolean actionNormal;
             do {
-                System.out.println("Программа криптоанализатор");
-                System.out.println("Режимы работы:\n" +
-                        "1.Режим шифрования текста (введите \"encode\")\n" +
-                        "2.Режим дешифрования текста (введите \"decode\")\n" +
-                        "3.Режим brute force (введите \"brute_force\")\n" +
-                        "4.Режим статистического анализа (введите \"analysis\") \n" +
-                        "5.Выход (введите \"exit\")");
+                System.out.println(menu);
                 System.out.println("Выберите требуемый режим работы");
                 args[0] = scanner.nextLine();                //encode
                 actionNormal = (args[0].equals("encode")) || ("decode".equals(args[0])) || ("brute_force".equals(args[0])) ||
@@ -38,7 +38,7 @@ public class ConsoleRunner {
                     System.out.println("Введите путь к файлу с результатом, иначе при нажатии \"Enter\" " +
                             "файлом с результатом работы будет \\CryptoAnalizer\\text\\encode.txt");
                     args[2] = scanner.nextLine(); //encode.txt
-                    System.out.println("Введите используемый ключ, не превышающий 62");//+ getAlphabetLength()
+                    System.out.println("Введите используемый ключ, не превышающий "+getAlphabetLength()+":");
                     args[3] = scanner.nextLine();
                     break;
 
@@ -49,7 +49,7 @@ public class ConsoleRunner {
                     System.out.println("Введите путь к файлу с результатом, иначе при нажатии \"Enter\" " +
                             "файлом с результатом работы будет \\CryptoAnalizer\\text\\text.txt");
                     args[2] = scanner.nextLine(); //text.txt
-                    System.out.println("Введите используемый ключ, не превышающий 62:");
+                    System.out.println("Введите используемый ключ, не превышающий "+getAlphabetLength()+":");
                     args[3] = scanner.nextLine();
                     break;
                 case "brute_force":
