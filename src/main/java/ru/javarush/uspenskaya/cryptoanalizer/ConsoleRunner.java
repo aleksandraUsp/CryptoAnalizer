@@ -3,6 +3,8 @@ package ru.javarush.uspenskaya.cryptoanalizer;
 import ru.javarush.uspenskaya.cryptoanalizer.entity.Result;
 import java.util.Scanner;
 
+import static ru.javarush.uspenskaya.cryptoanalizer.constants.Constants.getAlphabetLength;
+
 public class ConsoleRunner {
     public static void main(String[] args) {
 
@@ -36,7 +38,7 @@ public class ConsoleRunner {
                     System.out.println("Введите путь к файлу с результатом, иначе при нажатии \"Enter\" " +
                             "файлом с результатом работы будет \\CryptoAnalizer\\text\\encode.txt");
                     args[2] = scanner.nextLine(); //encode.txt
-                    System.out.println("Введите используемый ключ:");
+                    System.out.println("Введите используемый ключ, не превышающий 62");//+ getAlphabetLength()
                     args[3] = scanner.nextLine();
                     break;
 
@@ -47,7 +49,7 @@ public class ConsoleRunner {
                     System.out.println("Введите путь к файлу с результатом, иначе при нажатии \"Enter\" " +
                             "файлом с результатом работы будет \\CryptoAnalizer\\text\\text.txt");
                     args[2] = scanner.nextLine(); //text.txt
-                    System.out.println("Введите используемый ключ:");
+                    System.out.println("Введите используемый ключ, не превышающий 62:");
                     args[3] = scanner.nextLine();
                     break;
                 case "brute_force":
