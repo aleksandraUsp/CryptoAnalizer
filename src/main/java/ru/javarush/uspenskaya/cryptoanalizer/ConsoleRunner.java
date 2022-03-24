@@ -1,28 +1,25 @@
 package ru.javarush.uspenskaya.cryptoanalizer;
 
+import ru.javarush.uspenskaya.cryptoanalizer.constants.Constants;
 import ru.javarush.uspenskaya.cryptoanalizer.entity.Result;
 import java.util.Scanner;
 
 import static ru.javarush.uspenskaya.cryptoanalizer.constants.Constants.getAlphabetLength;
+import static ru.javarush.uspenskaya.cryptoanalizer.constants.Constants.getKeyMax;
 
 public class ConsoleRunner {
     public static void main(String[] args) {
-        String menu = "Программа криптоанализатор\n "+
-                "Режимы работы:\n" +
-                "1.Режим шифрования текста (введите \"encode\")\n" +
-                "2.Режим дешифрования текста (введите \"decode\")\n" +
-                "3.Режим brute force (введите \"brute_force\")\n" +
-                "4.Режим статистического анализа (введите \"analysis\") \n" +
-                "5.Выход (введите \"exit\")";
+        int key;
+
         while (args.length == 0) {
             args = new String[4];
             Scanner scanner = new Scanner(System.in);
             boolean actionNormal;
             do {
-                System.out.println(menu);
+                System.out.println(Constants.menu);
                 System.out.println("Выберите требуемый режим работы");
                 args[0] = scanner.nextLine();                //encode
-                actionNormal = (args[0].equals("encode")) || ("decode".equals(args[0])) || ("brute_force".equals(args[0])) ||
+                actionNormal = (args[0].equals("encode")) || ("decode".equals(args[0])) || ("bruteforce".equals(args[0])) ||
                         ("analysis".equals(args[0])) || ("exit".equals(args[0]));
                 if (!actionNormal) {
                     System.out.println("Неверный ввод. Выберите режим, введя нужное");
@@ -38,8 +35,13 @@ public class ConsoleRunner {
                     System.out.println("Введите путь к файлу с результатом, иначе при нажатии \"Enter\" " +
                             "файлом с результатом работы будет \\CryptoAnalizer\\text\\encode.txt");
                     args[2] = scanner.nextLine(); //encode.txt
-                    System.out.println("Введите используемый ключ, не превышающий "+getAlphabetLength()+":");
+                    do
+                    {System.out.println("Введите используемый ключ, не превышающий "
+                            + getAlphabetLength()+"(1.."+getKeyMax()+"):");
+
                     args[3] = scanner.nextLine();
+                    key = Integer.parseInt(args[3]);}
+                    while ((key<1)||(key>getKeyMax()));
                     break;
 
                 case "decode":
@@ -49,10 +51,15 @@ public class ConsoleRunner {
                     System.out.println("Введите путь к файлу с результатом, иначе при нажатии \"Enter\" " +
                             "файлом с результатом работы будет \\CryptoAnalizer\\text\\text.txt");
                     args[2] = scanner.nextLine(); //text.txt
-                    System.out.println("Введите используемый ключ, не превышающий "+getAlphabetLength()+":");
-                    args[3] = scanner.nextLine();
+                    do
+                    {System.out.println("Введите используемый ключ, не превышающий "
+                            + getAlphabetLength()+"(1.."+getKeyMax()+"):");
+
+                        args[3] = scanner.nextLine();
+                        key = Integer.parseInt(args[3]);}
+                    while ((key<1)||(key>getKeyMax()));
                     break;
-                case "brute_force":
+                case "bruteforce":
                     System.out.println("Введите путь к файлу-источнику, иначе при нажатии \"Enter\" " +
                             "файлом-источником будет \\CryptoAnalizer\\text\\encode.txt");
                     args[1] = scanner.nextLine(); //encode.txt

@@ -18,20 +18,19 @@ public class Encoder implements Action {
     public Result execute(String[] parameters) {  //parameters = [text.txt encode.txt 12]
 
         Path pathIn;
-        if (parameters[0].equals("n")) pathIn = Path.of(Constants.TXT_FOLDER + "text.txt");
-        if ((Path.of(parameters[0])).isAbsolute()) {
+        if (parameters[0].isEmpty()) pathIn = Path.of(Constants.TXT_FOLDER + "text.txt");
+        else if ((Path.of(parameters[0])).isAbsolute()) {
             pathIn = Path.of(parameters[0]);
-        } else if (!(Path.of(parameters[0])).isAbsolute()) {
-            pathIn = Path.of(Constants.TXT_FOLDER + parameters[0]);
-        } else pathIn = Path.of(Constants.TXT_FOLDER + "text.txt");
+        } else pathIn = Path.of(Constants.TXT_FOLDER + parameters[0]);
+
 
         Path pathOut;
-        if (parameters[1].equals("n")) pathOut = Path.of(Constants.TXT_FOLDER + "encode.txt");
-        if ((Path.of(parameters[1])).isAbsolute()) {
+        if (parameters[1].isEmpty()) pathOut = Path.of(Constants.TXT_FOLDER + "encode.txt");
+        else if ((Path.of(parameters[1])).isAbsolute()) {
             pathOut = Path.of(parameters[1]);
-        } else if (!(Path.of(parameters[1])).isAbsolute()) {
-            pathOut = Path.of(Constants.TXT_FOLDER + parameters[1]);
-        } else pathOut = Path.of(Constants.TXT_FOLDER + "encode.txt");
+        } else pathOut = Path.of(Constants.TXT_FOLDER + parameters[1]);
+
+
         if (!Files.exists(pathOut))
             try {
                 Files.createFile(pathOut);
@@ -41,7 +40,7 @@ public class Encoder implements Action {
 
         int key;
         try {
-            if (parameters[2].equals("n")) key = 12;
+            if (parameters[2].isEmpty()) key = 12;
             else key = Integer.parseInt(parameters[2]);
         } catch (NumberFormatException n) {
             throw new AppException("некорректный ввод ключа" + n.getCause());

@@ -5,11 +5,11 @@ import java.io.File;
 public class Constants {
     private static final String RUS = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
     private static final String CYFER = "0123456789";
-    private static final String ZNAK = ".,«»:;!?{}[]()@№/\"\\ ";
-    private static final String ALPHABET = RUS+RUS.toLowerCase()+CYFER+ZNAK;
+    private static final String ZNAK = ".,«»:;!?{}[]()@№/\"\\";
+    private static final String ALPHABET = RUS + RUS.toLowerCase() + CYFER + ZNAK + " ";
     //+RUS.toLowerCase()
 
-    public static final String TXT_FOLDER=System.getProperty("user.dir")+ File.separator+"text"+File.separator;
+    public static final String TXT_FOLDER = System.getProperty("user.dir") + File.separator + "text" + File.separator;
 
 
     public static String getALPHABET() {
@@ -20,10 +20,15 @@ public class Constants {
         return ALPHABET.length();
     }
 
-    /*private static final char[] RUS = new char[] {'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'};
-    private static final char[] CYPHER = new char[] {'0', '1', '2', '3', '4', '5', '6', '7','8', '9'};
-    private static final char[] ZNAK = new char[] {'.', ',', '«', '»', ':', '!', '?', ' ', '{', '}',
-            '[', ']', '(', ')', '@','№', ';'};
-    public static final char[] ALPHABET = new char[2* RUS.length + CYPHER.length + ZNAK.length];*/
-    //ALPHABET =RUS + (RUS.toString().toUpperCase(Locale.ROOT)).toCharArray();
+    public static int getKeyMax() {
+        return ALPHABET.length() - 1;
+    }
+    public static String menu = "Программа криптоанализатор\n "+
+            "Режимы работы:\n" +
+            "1.Шифровка текста (введите \"encode\")\n" +
+            "2.Расшифровка текста с помощью ключа (введите \"decode\")\n" +
+            "3.Расшифровка текста с помощью brute force (введите \"bruteforce\")\n" +
+            "4.Режим статистического анализа (введите \"analysis\") \n" +
+            "5.Выход (введите \"exit\")";
+
 }

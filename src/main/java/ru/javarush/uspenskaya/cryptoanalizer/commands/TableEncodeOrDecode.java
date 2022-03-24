@@ -11,13 +11,17 @@ public class TableEncodeOrDecode {
         char[] chars = ALPHABET.toCharArray();
         var tableEncodeChar = new TreeMap<Character, Character>();
         for (int i = 0; i < chars.length; i++) {
-            if (i + key >= 0)
-                tableEncodeChar.put(chars[i], chars[(i + key) % getAlphabetLength()]);
-            else {
-                tableEncodeChar.put(chars[i], chars[(getAlphabetLength() + i + key) % getAlphabetLength()]);
-            }
-
+        tableEncodeChar.put(chars[i], chars[(i+key) % getAlphabetLength()]);
         }
         return tableEncodeChar;
+    }
+    public static TreeMap<Character, Character> getTableDecodeChar(int key) {
+        String ALPHABET = getALPHABET();
+        char[] chars = ALPHABET.toCharArray();
+        var tableDecodeChar = new TreeMap<Character, Character>();
+        for (int i = 0; i < chars.length; i++) {
+            tableDecodeChar.put(chars[i], chars[(i - key+getAlphabetLength()) % getAlphabetLength()]);
+        }
+        return tableDecodeChar;
     }
 }

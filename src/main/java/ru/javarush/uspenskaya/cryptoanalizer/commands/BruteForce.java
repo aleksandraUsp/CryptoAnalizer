@@ -11,17 +11,18 @@ import java.nio.file.Path;
 import java.util.TreeMap;
 
 import static ru.javarush.uspenskaya.cryptoanalizer.commands.TableEncodeOrDecode.getTableDecodeChar;
-import static ru.javarush.uspenskaya.cryptoanalizer.commands.TableEncodeOrDecode.getTableEncodeChar;
 
+public class BruteForce implements Action {
+    TreeMap<Integer, Integer> tableBestKey = new TreeMap<>();
 
-public class Decoder implements Action {
     @Override
-    public Result execute(String[] parameters) { //parameters = [encode.txt text.txt  12]
+    public Result execute(String[] parameters) { //parameters = [encode.txt text.txt]
         Path pathIn;
         if (parameters[0].isEmpty()) pathIn = Path.of(Constants.TXT_FOLDER + "encode.txt");
         else if ((Path.of(parameters[0])).isAbsolute()) {
             pathIn = Path.of(parameters[0]);
         } else pathIn = Path.of(Constants.TXT_FOLDER + parameters[0]);
+
 
         Path pathOut;
         if (parameters[1].isEmpty()) pathOut = Path.of(Constants.TXT_FOLDER + "text.txt");
@@ -36,15 +37,44 @@ public class Decoder implements Action {
                 throw new AppException("Ошибка ввода-вывода" + io.getCause());
             }
 
-        int key;
-        try {
-            if (parameters[2].isEmpty()) key = 12;
-            else key = Integer.parseInt(parameters[2]);
-        } catch (NumberFormatException n) {
-            throw new AppException("некорректный ввод ключа" + n.getCause());
-        }
 
-        TreeMap<Character, Character> tableDecodeChar = getTableDecodeChar(key);
+
+        char[] tempIn = new char[1000];
+        char[] tempOut = new char[1000];
+
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(pathIn.toFile()))) {
+            for (int key = 1; key < Constants.getAlphabetLength(); key++) { //1..95
+                int numberOfGaps = 0;
+                TreeMap<Character, Character> tableDecodeChar = getTableDecodeChar(key);
+                int real;
+                do
+                {real = reader.read(tempIn, 0, tempIn.length);}
+                while (real!=-1);
+
+                for (int i = 0; i < tempIn.length; i++) {
+                    tempOut[i] = tableDecodeChar.getOrDefault(tempIn[i], '☮');
+                    if (tempOut[i] == ' ') numberOfGaps++;
+                }
+                tableBestKey.put(numberOfGaps, key);
+            }
+        } catch (FileNotFoundException f) {
+            throw new AppException("Не найден файл\n" + f.getCause());
+        } catch (IOException io) {
+            throw new AppException("Ошибка ввода/вывода\n" + io.getCause());
+        }
+        return getResultDecode(pathIn, pathOut, getDecodeKey()); // return Result
+    }
+
+
+    private int getDecodeKey() {
+
+       int maxNumberOfGaps = tableBestKey.lastKey(); //  lastKey = max numberOfGaps <numberOfGaps, key>
+       return tableBestKey.get(maxNumberOfGaps); //== bestKey
+    }
+
+    private Result getResultDecode(Path pathIn, Path pathOut, int resultKey) {
+        TreeMap<Character, Character> tableDecodeChar = getTableDecodeChar(resultKey);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(pathIn.toFile()));
              BufferedWriter writer = new BufferedWriter(new FileWriter(pathOut.toFile()))) {
