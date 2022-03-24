@@ -67,14 +67,14 @@ public class ConsoleRunner {
                             "файлом с результатом работы будет \\CryptoAnalizer\\text\\text.txt");
                     args[2] = scanner.nextLine(); //text.txt
                     break;
-                case "analysis":
+                /* case "analysis":
                     System.out.println("Введите путь к файлу-источнику, иначе при нажатии \"Enter\" " +
                             "файлом-источником будет \\CryptoAnalizer\\text\\encode.txt");
                     args[1] = scanner.nextLine(); //encode.txt
                     System.out.println("Введите путь к файлу с результатом, иначе при нажатии \"Enter\" " +
                             "файлом с результатом работы будет \\CryptoAnalizer\\text\\text.txt");
                     args[2] = scanner.nextLine(); //text.txt
-                    break;
+                    break; */
                 default:
                     continue;
             }
@@ -87,6 +87,3 @@ public class ConsoleRunner {
         }
     }
 }
-// int key;
-//String text;
-//String textEncoding;
